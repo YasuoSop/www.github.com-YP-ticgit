@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡模式</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+		<style>
+			#demo {
+				position: relative;
+			}
+			button {
+				position: absolute;
+			}
+			.slide-fade-enter, .slide-fade-leave-active {
+				opacity: 0;
+			}
+			.slide-fade-leave-active {
+				transform: translateX(-31px);
+			}
+			
+			.slide-fade-enter-active, .slide-fade-leave-active {
+				transition:all 1s;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo">
+			<transition name="slide-fade" mode="out-in">
+				<button @click="change">
+					{{ message }}
+				</button>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#demo' ,
+				data: {
+					message: 'off'
+				},
+				methods: {
+					change: function() {
+						this.message = this.message == 'off' ? 'on' : 'off'
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

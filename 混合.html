@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>混合对象</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	</head>
+
+	<body>
+		<!--<script>
+			// 定义一个混合对象
+			var myMixin = {
+				created: function() {
+					this.hello()
+				},
+				methods: {
+					hello: function() {
+						consolo.log('hello from mixin！')
+					}
+				}
+			}
+			
+			// 定义一个使用混合对象的组件
+			var Component = Vue.extend({
+				mixins: [myMixin]
+			})
+			
+			var component = new Component()
+		</script>-->
+		<!-- 以下这个例子说明：混合对象的钩子在组件自身钩子之前调用 -->
+		<!--<script>
+			var mixin = {
+				created: function() {
+					console.log('混合对象的钩子被调用')
+				}
+			}
+			
+			new Vue({
+				mixins: [mixin],
+				created: function() {
+					console.log('组件钩子被调用')
+				}
+			})
+		</script>-->
+		<!--<script>
+			var mixin = {
+				methods: {
+					foo: function() {
+						console.log('foo')
+					},
+					conflicting: function() {
+						console.log('from mixin')
+					}
+				}
+			}
+
+			var vm = new Vue({
+				mixins: [mixin],
+				methods: {
+					bar: function() {
+						console.log('bar')
+					},
+					conflicting: function() {
+						console.log('from self')
+					}
+				}
+			})
+
+			vm.foo()
+			vm.bar()
+			// 两个对象键名冲突时，取组件对象的键值对，而并不是钩子对象的键值对
+			vm.conflicting()
+		</script>-->
+		<!-- 全局混合
+			注意：
+				请谨慎使用全局混合对象，因为会影响到每个单独创建的Vue实例（包括第三方模板）
+		-->
+		<script>
+			Vue.mixin({
+				created: function() {
+					var myOption = this.$options.myOption
+					if(myOption)
+						console.log(myOption)
+				}
+			})
+
+			new Vue({
+				myOption: 'hello'
+			})
+		</script>
+	</body>
+
+</html>

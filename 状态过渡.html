@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>状态过渡</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/tween.js@16.6.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/color-js@1.0.4"></script>
+	</head>
+
+	<body>
+		<!-- 数字更新触发动画 -->
+		<div id="animated-number-demo">
+			<input v-model.number="number" type="number" step="20">
+			<h1>{{ animatedNumber }}</h1>
+		</div>
+		<script>
+			new Vue({
+				el: "#animated-number-demo",
+				data: {
+					number: 0,
+					animatedNumber: 0
+				},
+				watch: {
+					number: function(newValue, oldValue) {
+						var vm = this
+
+						function animate() {
+							// TWEEN.update()：表示定期更新TWEEN，表示当值改变后，就会触发动画效果
+							if(TWEEN.update()) {
+								// requestAnimationFrame：获得良好的图像性能
+								requestAnimationFrame(animate)
+							}
+						}
+
+						// tween.easing：指明过渡形式
+						// TWEEN.Easing.Quadratic：会开始快速变化，但随着值接近值而放缓
+						new TWEEN.Tween({
+								tweeningNumber: oldValue
+							}).easing(TWEEN.Easing.Bounce.InOut)
+							.to({
+								tweeningNumber: newValue
+							}, 500) // 500：表示动画执行的时间
+							// onUpdate：表示动画更新时调用
+							.onUpdate(function() {
+								// toFixed：把数字转换为字符串，四舍五入为指定小数位数的数字
+								vm.animatedNumber = this.tweeningNumber.toFixed(0)
+							})
+							.start()
+						animate()
+					}
+				}
+			})
+		</script>
+		<!-- 输入除数字以外的值，触发动画 -->
+		<!--<style>
+			.example-7-color-preview {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+			}
+		</style>
+		<div id="example-7">
+			<input v-model="colorQuery" @keyup.enter="updateColor" placeholder="Enter a Color">
+			<button @click="updateColor">Update</button>
+			<p>Preview：</p>
+			<span :style="{ backgroundColor: tweenedCSSColor }" class="example-7-color-preview"></span>
+			<p>{{ tweenedCSSColor }}</p>
+		</div>
+		<script>
+			// 表示从公共命名空间net.brehaut中获取Color
+			var Color = net.brehaut.Color;
+
+			new Vue({
+				el: '#example-7',
+				data: {
+					colorQuery: '',
+					color: {
+						red: 0,
+						green: 0,
+						blue: 0,
+						alpha: 1
+					},
+					tweenedColor: {}
+				},
+				// created：表示实例创建完成后立即调用
+				created: function() {
+					// Object.assign(target：表示目标对象, sources：源对象)：表示复制一个或者多个对象到目标对象中
+					this.tweenedColor = Object.assign({}, this.color)
+				},
+				watch: {
+					color: function() {
+						function animate() {
+							if(TWEEN.update()) {
+								requestAnimationFrame(animate)
+							}
+						}
+
+						new TWEEN.Tween(this.tweenedColor).to(this.color, 750).start()
+						animate()
+					}
+				},
+				computed: {
+					tweenedCSSColor: function() {
+						return new Color({
+							red: this.tweenedColor.red,
+							green: this.tweenedColor.green,
+							blue: this.tweenedColor.blue,
+							alpha: this.tweenedColor.alpha
+						}).toCSS()
+					}
+				},
+				methods: {
+					updateColor: function() {
+						this.color = new Color(this.colorQuery).toRGB()
+						this.colorQuery = ''
+					}
+				}
+			})
+		</script>-->
+	</body>
+
+</html>

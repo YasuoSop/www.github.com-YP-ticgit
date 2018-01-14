@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>CurrencyInput</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<!--<div id="example">
+			<currency-input v-model="price"></currency-input>
+		</div>
+		<script>
+			Vue.component('currency-input', {
+				template: '\
+					<span>\
+					$\
+					<input\
+						ref="input"\
+						:value="value"\
+						@input="updateValue($event.target.value)"\
+						>\
+						</span>\
+						',
+				props: ['value'],
+				methods: {
+					// 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
+					updateValue: function(value) {
+						console.log(value.indexOf('.') === -1 ? value.length : value.indexOf('.') + 3)
+						var formattedValue = value
+							// 删除两侧的空格符
+							.trim()
+							// 保留2位小数，算上小数点截取完
+							.slice(0, value.indexOf('.') === -1 ? value.length : value.indexOf('.') + 3)
+						// 如果值尚不合规，则手动覆盖为合规的值
+						if(formattedValue !== value) {
+							// $refs 表示一个对象，持有已注册过 ref 的所有子组件。
+							this.$refs.input.value = formattedValue
+						}
+						// 通过 input 事件带出数值
+						// Number(xxx) 表示将formattedValue强转成一个Number类型
+						this.$emit('input', Number(formattedValue))
+					}
+				}
+			})
+			new Vue({
+				el: '#example',
+				data: {
+					price: ''
+				}
+			})
+		</script>-->
+		<div id="example-2">
+			<my-checkbox v-model="foo" value="some value"></my-checkbox>
+		</div>
+		<script>
+			Vue.component('my-checkbox', {
+				model: {
+					prop: 'checked',
+					event: 'change'
+				},
+				props: {
+					// 这样就允许拿value这个prop做其它事了
+					value: String ,
+					checked: Boolean
+				},
+				template: '<span :checked=\"foo\" @change=\"val => { foo = val }\" value=\"some value\"></span>'
+			})
+			new Vue({
+				el: '#example-2' ,
+				props: ['checked'] ,
+				data: {
+					foo: false
+				}
+			})
+		</script>
+	</body>
+
+</html>

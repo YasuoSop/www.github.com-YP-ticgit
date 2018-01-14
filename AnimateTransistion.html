@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡效果动画</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+		<style>
+			/*元素被插入时过渡的效果*/
+			.test-enter-active,
+			/*元素在离开过渡被触发后立即生效的效果*/
+			.test-leave-active {
+				transition: opacity .5s;
+			}
+			
+			/*定义进入过渡的开始状态，在元素被插入时生效*/
+			.test-enter,
+			/*定义离开的过渡效果*/
+			.test-leave-to {
+				opacity: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="demo">
+			<button @click="show = !show">Toggle</button>
+			<transition name="test">
+				<p v-if="show">Hello</p>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#demo',
+				data: {
+					show: true
+				}
+			})
+		</script>
+	</body>
+
+</html>

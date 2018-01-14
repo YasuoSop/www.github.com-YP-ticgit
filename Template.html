@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<!--<div id="example">
+			<hello-world></hello-world>
+		</div>
+		<script type="text/x-template" id="hello-world-template">
+			<p>Hello Hello hello</p>
+		</script>
+		<script>
+			Vue.component('hello-world', {
+				template: '#hello-world-template'
+			})
+			new Vue({
+				el: '#example'
+			})
+		</script>-->
+		<div id="example-2">
+			<terms-of-service></terms-of-service>
+		</div>
+		<script>
+			Vue.component('terms-of-service', {
+				template: '\
+					<div v-once>\
+						<h1>Terms Of Service</h1>\
+					</div>\
+					'
+			})
+			new Vue({
+				el: '#example-2'
+			})
+		</script>
+	</body>
+
+</html>

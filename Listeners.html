@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Title</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<!--<div id="example-1">
+		<button @click="counter += 1">Add 1</button>
+		<p>The button above has been clicked {{ counter }} times.</p>
+	</div>
+	<script>
+		var example = new Vue({
+			el: '#example-1' ,
+			data: {
+				counter: 0
+			}
+		})
+	</script>-->
+		<!--<div id="example-2">
+			<button @click="greet">Greet</button>
+		</div>
+		<script>
+			var example2 = new Vue({
+				el: '#example-2',
+				data: {
+					name: 'Vue.js'
+				},
+				// 在methods 对象中定义方法
+				methods: {
+					greet: function(event) {
+						// this 在方法里指向当前Vue 实例
+						alert('Hello' + this.name + '！')
+						// event 是原生DOM事件
+						// 如果浏览器有event这个内置对象的话，就弹出触发当前事件的元素名称
+						if(event) {
+							// xxx.target 表示发生事件的元素
+							alert(event.target.tagName)
+						}
+					}
+				}
+			})
+			//		example2.greet()
+		</script>-->
+		<!--<div id="example-3">
+			<button @click="say('Hi')">Say Hi</button>
+			<button @click="say('what')">Say what</button>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-3' ,
+				data: {
+					vue: ' Vue.js'
+				} ,
+				methods: {
+					say: function(msg) {
+						alert(msg + this.vue)
+					}
+				}
+			})
+		</script>-->
+		<div id="example-4">
+			<button @click="warn('From cannot be submited yet.', $event)">Submit</button>
+			<!-- 只有在按住 ctrl 的情况下释放其它按键，才能触发 keyup.ctrl。而单单释放 ctrl 也不会触发事件。 -->
+			<input @click.middle="submit">
+		</div>
+		<script>
+			new Vue({
+				el: '#example-4' ,
+				methods: {
+					warn: function(message, event) {
+						// 现在我们可以访问原生事件对象
+						if (event) event.preventDefault()
+						alert(message)
+					},
+					submit: function(event) {
+						alert(event.target.value)
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

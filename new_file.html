@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	</head>
+	<body>
+		<div id="demo">
+			<input v-model.number="one">
+			<input v-model.number="two">
+			<label>{{ one }} + {{ two }} = {{ result }}</label>
+		</div>
+		<script>
+			new Vue({
+				el: '#demo',
+				data: {
+					one: 0,
+					two: 0
+				},
+				computed: {
+					result: function() {
+						return this.one + this.two
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

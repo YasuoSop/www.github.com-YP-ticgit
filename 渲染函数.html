@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>渲染函数</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	</head>
+
+	<body>
+		<!--<h1>
+			<a name="hello-world" href="#hello-world">
+				Hello World! 
+			</a>
+		</h1>-->
+		<!--<div id="demo-1">
+			<anchored-heading :level="5">Hello world!</anchored-heading>
+			<anchored-heading :level="1">Hello world!</anchored-heading>
+		</div>
+		<!--<script type="text/x-template" id="anchored-heading-template">
+			<h1 v-if="level === 1">
+			</h1>
+			<h2 v-else-if="level === 2">
+			</h2>
+			<h3 v-else-if="level === 3">
+			</h3>
+			<h4 v-else-if="level === 4">
+			</h4>
+			<h5 v-else-if="level === 5">
+			</h5>
+			<h6 v-else-if="level === 6">
+			</h6>
+		</script>
+		<script>
+			Vue.component('anchored-heading', {
+				template: '#anchored-heading-template',
+				props: {
+					level: {
+						type: Number,
+						required: true
+					}
+				}
+			})
+
+			new Vue({
+				el: '#demo-1'
+			})
+						
+		</script>-->
+		<!-- 使用render函数优化后 -->
+		<!--<script>
+			Vue.component('anchored-heading', {
+				render: function(createElement) {
+					console.log(this.$slots.default[0].text)
+					return createElement(
+						'h' + this.level, // tag name 标签名称
+						this.$slots.default // 子组件中的阵列
+					)
+				},
+				props: {
+					level: {
+						type: Number,
+						required: true
+					}
+				}
+			})
+
+			new Vue({
+				el: '#demo-1'
+			})
+		</script>-->
+		<!--<div id="demo-2">
+		</div>
+		<script>
+			new Vue({
+				el: '#demo-2',
+				props: {
+					blogTitle: {
+						type: String,
+						required: true,
+						default: '默认值'
+					}
+				},
+				// render使用箭头函数后，this.blogTitle的默认值是undefined，必须赋初值；
+				// 如果没有使用箭头函数，那么Vue就会自动使用属性的默认值。
+				// 在箭头函数中可以不绑定this
+				render: createElement => {
+					blogTitle = '修改'
+					console.log(blogTitle)
+					// 使用虚拟DOM节点创建一个h1节点并绑定值
+					return createElement('h1', blogTitle)
+				}
+			})
+		</script>
+		<div id="demo-3">
+			<p>Using mustaches: {{ rawHtml }}</p>
+			<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+		</div>
+		<script>
+			new Vue({
+				el: '#demo-3',
+				data: {
+					rawHtml: '<span style=\"color: red\">This is should be red.</span>'
+				}
+			})
+		</script>-->
+		<div id="demo-4">
+			<anchored-heading :level="2">Hello Vue! </anchored-heading>
+		</div>
+		<script>
+			var getChildrenTextContent = function(children) {
+				return children.map(function(node) {
+					return node.children ? getChildrenTextContent(node.children) : node.text
+				}).join('')
+			}
+
+			Vue.component('anchored-heading', {
+				render: function(createElement) {
+					var headingId = getChildrenTextContent(this.$slots.default).toLowerCase().replace(/\W+/g, '-').replace(/(^\-|\-$)/g, '')
+
+					return createElement('h' + this.level, [
+						createElement('a', {
+							attrs: {
+								name: headingId,
+								href: '#' + headingId
+							}
+						}, this.$slots.default)
+					])
+				},
+				props: {
+					level: {
+						type: Number,
+						required: true
+					}
+				}
+			})
+
+			new Vue({
+				el: '#demo-4'
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>过滤器</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<div id="demo">
+			<input v-model="message">
+			<p>{{ message | capitalize }}</p>
+		</div>
+		<script>
+			// 注册全局过滤器
+			Vue.filter('capitalize', (value) => {
+				if(!value) return ''
+				value = value.toString()
+				return value.charAt(0).toUpperCase() + value.slice(1)
+			})
+			new Vue({
+				el: '#demo',
+				data: {
+					message: 'vue'
+				}
+				// 注册局部过滤器
+				//,
+				//				filters: {
+				//					capitalize: (value) => {
+				//						if(!value) return ''
+				//						value = value.toString()
+				//						return value.charAt(0).toUpperCase() + value.slice(1)
+				//					}
+				//				}
+			})
+		</script>
+	</body>
+
+</html>

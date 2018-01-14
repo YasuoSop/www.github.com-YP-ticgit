@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>过渡效果动画</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<!--<style>
+			.slide-fade-enter-active {
+				transition: all .3s ease;
+			}
+			
+			.slide-fade-leave-active {
+				/*先慢后快再慢*/
+				transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+			}
+			
+			.slide-fade-enter,
+			.slide-fade-leave-to {
+				transform: translateX(10px);
+				opacity: 0;
+			}
+		</style>
+		<div id="example-1">
+			<button @click="show = !show">
+				Toggle render
+			</button>
+			<transition name="slide-fade">
+				<p v-if="show">Hello</p>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-1',
+				data: {
+					show: true
+				}
+			})
+		</script>-->
+		<!--<style>
+			.bounce-enter-active {
+				/*alternate：动画先正常运行再反方向运行，并持续交替运行*/
+				/*alternate-reverse：动画先反运行再正方向运行，并持续交替运行*/
+				animation: bounce-out .5s alternate-reverse;
+			}
+			
+			.bounce-leave-active {
+				animation: bounce-in .5s reverse;
+			}
+			
+			@keyframes bounce-out {
+				0% {
+					transform: scale(0);
+				}
+				50% {
+					transform: scale(3);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+			
+			@keyframes bounce-in {
+				0% {
+					transform: scale(0);
+				}
+				50% {
+					transform: scale(1.5);
+				}
+				100% {
+					transform: scale(1);
+				}
+			}
+		</style>
+		<div id="example-2">
+			<button @click="show = !show">Toggle Show</button>
+			<!-- 使用:css="false"，Vue会跳过CSS的检测
+			<transition @enter="enter" name="bounce" :css="false">
+				<p v-if="show">Lorem ipsum dolor sit amet, consectetur adipiscing elit.Mauris facillisis enim libero, at lacinia diam fermentum id. Pellentesque habitant morbi tristique senectus et netus.</p>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-2',
+				data: {
+					show: true
+				},
+				methods: {
+					enter: function (el, done) {
+						console.log(done)
+					}
+				}
+			})
+		</script>-->
+		<!-- 自定义过渡的类名 -->
+		<link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css" />
+		<div id="example-3">
+			<button @click="show = !show">Toggle Render</button>
+			<transition 
+				:css="true"
+				:duration="1000" 
+				@before-enter="beforeEnter"
+				@enter="enter" 
+				@after-enter="afterEnter"
+				@before-leave="beforeLeave"
+				@leave="leave"
+				@after-leave="afterLeave"
+				@leave-cancelled="leaveCancelled" 
+				name="custom-classes-transistion" 
+				enter-active-class="animated flipInX" 
+				leave-active-class="animated flipOutX"
+			>
+				<h1 v-if="show">Hello</h1>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-3', 
+				data: {
+					show: true
+				},
+				methods: {
+					beforeEnter: function(el) {
+						console.log("元素进入前")
+					},
+					enter: function (el, done) {
+						console.log("元素进入时")
+					}, 
+					afterEnter: function (el) {
+						console.log("元素进入后")
+					}, 
+					beforeLeave: function (el) {
+						console.log("元素离开前")
+					}, 
+					leave: function (el, done) {
+						console.log("元素离开时")
+					}, 
+					afterLeave: function (el) {
+						console.log("元素离开后")
+					}, 
+					leaveCancelled: function (el) {
+						console.log("元素离开取消时")
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

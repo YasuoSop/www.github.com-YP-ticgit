@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>子组件</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+	<body>
+		<!--<div id="parent">
+			<user-profile ref="profile"></user-profile>
+		</div>
+		<script>
+			Vue.component('user-profile', {
+				template: '<span>qweqewq</span>'
+			})
+			var parent = new Vue({
+				el: '#parent'
+			})
+			// 访问子组件实例
+			var child = parent.$refs.profile
+		</script>-->
+		// 递归组件
+		<div id="example-2">
+			<stack-overflow></stack-overflow>
+		</div>
+		<script>
+			Vue.component('stack-overflow', {
+				template: '<div v-if=\"false\"><stack-overflow></stack-overflow></div><div v-else>不递归调用</div>'
+			})
+			new Vue({
+				el: '#example-2'
+			})
+		</script>
+	</body>
+</html>

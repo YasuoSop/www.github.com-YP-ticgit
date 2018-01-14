@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>多元素过渡</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+	</head>
+
+	<body>
+		<!--<div id="example">
+			<transition>
+				<button v-if="isEditing" key="save">
+				Save
+			</button>
+				<button v-else key="edit">
+				Edit
+			</button>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example',
+				data: {
+					isEditing: false
+				}
+			})
+		</script>-->
+		<!-- 优化后 -->
+		<!--<div id="example-2">
+			<transition>
+				<button :key="isEditing">
+					{{ isEditing ? 'Save' : 'Edit' }}
+				</button>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-2',
+				data: {
+					isEditing: false
+				}
+			})
+		</script>-->
+		<!--<div id="example-3">
+			<transition>
+				<button v-if=" === 'saved'" key="saved">
+					Edit
+				</button>
+				<button v-if="docState === 'edited'" key="edited">
+					Save
+				</button>
+				<button v-if="docState === 'editing'" key="editing">
+					Cancel
+				</button>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-3',
+				data: {
+					docState: 'edited'
+				}
+			})
+		</script>-->
+		<!-- 优化后 -->
+		<div id="example-4">
+			<transition name="fade" mode="in-out">
+				<button :key="docState">
+					{{ buttonMessage }}
+				</button>
+			</transition>
+		</div>
+		<script>
+			new Vue({
+				el: '#example-4',
+				data: {
+					docState: 'editing'
+				},
+				computed: {
+					buttonMessage: function() {
+						switch(this.docState) {
+							case 'saved':
+								return 'Edit'
+							case 'edited':
+								return 'Save'
+							case 'editing':
+								return 'Cancel'
+						}
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

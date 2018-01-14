@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>列表的进入、离开过渡</title>
+		<link rel="shortcut icon" href="img/Logo.ico" />
+		<script src="js/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
+	</head>
+
+	<body>
+		<!--<style>
+			.list-item {
+				display: inline-block;
+				margin-right: 10px;
+			}
+			
+			.list-enter-active,
+			.list-leave-active {
+				transition: all 1s;
+			}
+			
+			.list-enter,
+			.list-leave-to {
+				opacity: 0;
+				transform: translateY(50px);
+			}
+		</style>
+		<div id="list-demo" class="demo">
+			<button @click="add">Add</button>
+			<button @click="remove">Remove</button>
+			<!-- tag表示transition-group要用什么标签来渲染，默认是span
+			<transition-group name="list" tag="h1">
+				<span v-for="item in items" :key="item" class="list-item">
+					{{ item }}
+				</span>
+			</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el: '#list-demo',
+				data: {
+					items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+					nextNum: 10
+				},
+				methods: {
+					randomIndex: function() {
+						// 得到小于或者等于该数值的最大整数
+						return Math.floor(Math.random() * this.items.length)
+					},
+					add: function() {
+						this.items.splice(this.randomIndex(), 0, this.nextNum++)
+					},
+					remove: function() {
+						this.items.splice(this.randomIndex(), 1)
+					},
+				}
+			})
+		</script>-->
+		<!-- 列表的过渡排序 -->
+		<!--<style>
+			.list-complete-item {
+				transition: all 1s;
+				display: inline-block;
+				margin-right: 10px;
+			}
+			
+			list-complete-enter,
+			.list-complete-leave-to {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			
+			.list-complete-leave-active {
+				position: absolute;
+			}
+		</style>
+		<div id="flip-list-demo" class="demo">
+			<button @click="shuffle">Shuffle</button>
+			<button @click="add">Add</button>
+			<button @click="remove">Remove</button>
+			<transition-group name="list-complete" tag="p">
+				<span v-for="item in items" :key="item" class="list-complete-item">
+					{{ item }}
+				</span>
+			</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el: '#flip-list-demo',
+				data: {
+					items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+					nextNum: 10
+				},
+				methods: {
+					randomIndex: function() {
+						return Math.floor(Math.random() * this.items.length)
+					},
+					add: function() {
+						this.items.splice(this.randomIndex(), 0, this.nextNum++)
+					},
+					remove: function() {
+						this.items.splice(this.randomIndex(), 1)
+					},
+					shuffle: function() {
+						this.items = _.shuffle(this.items)
+					}
+				}
+			})
+		</script>-->
+		<style>
+			.container {
+				display: flex;
+				/*换行*/
+				flex-wrap: wrap;
+				width: 11.9rem;
+				margin-top: 0.5rem;
+			}
+			
+			.cell {
+				display: flex;
+				/*设置或检索弹性盒子元素在主轴（横轴）方向上的对齐方式为平均分布在行里，两端保留子元素与子元素间距的一半*/
+				justify-content: space-around;
+				/*设置或检索弹性盒子元素在侧轴（纵轴）方向上的对齐方式为弹性盒子元素在该行的侧轴（纵轴）上居中放置，可以理解为纵向对齐*/
+				align-items: center;
+				width: 1.25rem;
+				height: 1.25rem;
+				border: #AAA solid 0.05rem;
+				margin-right: -1px;
+				margin-bottom: -1px;
+			}
+			
+			/*每三列的右边距为0*/
+			.cell:nth-child(3n) {
+				margin-right: 0;
+			}
+			
+			/*每三行的下边距为0*/
+			.cell:nth-child(27n) {
+				margin-bottom: 0;
+			}
+			
+			.cell-move {
+				transition: transform 1s;
+			}
+		</style>
+		<div id="sudoku-demo" class="demo">
+			<h1>Lazy Sudoku</h1>
+			<p>Keep hitting the shuffle button until you win.</p>
+			<button @click="shuffle">
+				Shuffle
+			</button>
+			<transition-group name="cell" tag="div" class="container">
+				<div v-for="cell in cells" :key="cell.id" class="cell">
+					{{ cell.number }}
+				</div>
+			</transition-group>
+		</div>
+		<script>
+			new Vue({
+				el: '#sudoku-demo',
+				data: {
+					cells: Array.apply(null, {
+						length: 81
+					}).map(function(_, index) {
+						return {
+							id: index,
+							number: index % 9 + 1
+						}
+					})
+				},
+				methods: {
+					shuffle: function() {
+						this.cells = _.shuffle(this.cells)
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>
